@@ -23,8 +23,8 @@ locals {
 }
 
 resource "aws_compute_optimizer_enrollment_status" "this" {
-  count   = var.enable_compute_optimizer ? 1 : 0
-  status  = "Active"
+  count                   = var.enable_compute_optimizer ? 1 : 0
+  status                  = "Active"
   include_member_accounts = false
 }
 
@@ -69,22 +69,22 @@ module "simulation_network" {
 module "compute_simulation" {
   source = "../../modules/compute-simulation"
 
-  name             = local.name
-  enabled          = var.simulate_spot_ondemand
-  subnet_id        = module.simulation_network.public_subnet_ids[0]
-  instance_type    = var.simulation_instance_type
-  required_tags    = local.required_tags_map
-  tags             = local.tags
+  name          = local.name
+  enabled       = var.simulate_spot_ondemand
+  subnet_id     = module.simulation_network.public_subnet_ids[0]
+  instance_type = var.simulation_instance_type
+  required_tags = local.required_tags_map
+  tags          = local.tags
 }
 
 module "lambda_automation" {
   source = "../../modules/lambda-automation"
 
-  name                               = local.name
-  sns_topic_arn                      = module.sns.topic_arn
-  required_tags                      = var.required_tags
-  auto_stop_schedule_expression      = var.auto_stop_schedule_expression
-  untagged_scan_schedule_expression  = var.untagged_scan_schedule_expression
-  weekly_report_schedule_expression  = var.weekly_report_schedule_expression
-  tags                               = local.tags
+  name                              = local.name
+  sns_topic_arn                     = module.sns.topic_arn
+  required_tags                     = var.required_tags
+  auto_stop_schedule_expression     = var.auto_stop_schedule_expression
+  untagged_scan_schedule_expression = var.untagged_scan_schedule_expression
+  weekly_report_schedule_expression = var.weekly_report_schedule_expression
+  tags                              = local.tags
 }

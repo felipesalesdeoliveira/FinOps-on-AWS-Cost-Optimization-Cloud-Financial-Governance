@@ -35,10 +35,10 @@ resource "aws_instance" "on_demand" {
   vpc_security_group_ids = [aws_security_group.sim[0].id]
 
   tags = merge(var.tags, var.required_tags, {
-    Name      = "${var.name}-ondemand"
-    Workload  = "critical"
-    AutoStop  = "true"
-    Pricing   = "OnDemand"
+    Name     = "${var.name}-ondemand"
+    Workload = "critical"
+    AutoStop = "true"
+    Pricing  = "OnDemand"
   })
 }
 
@@ -54,9 +54,9 @@ resource "aws_spot_instance_request" "spot" {
   spot_type              = "one-time"
 
   tags = merge(var.tags, var.required_tags, {
-    Name      = "${var.name}-spot"
-    Workload  = "interruptible"
-    AutoStop  = "true"
-    Pricing   = "Spot"
+    Name     = "${var.name}-spot"
+    Workload = "interruptible"
+    AutoStop = "true"
+    Pricing  = "Spot"
   })
 }
